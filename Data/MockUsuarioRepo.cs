@@ -8,6 +8,11 @@ namespace Alpha.Servicios.Data
     /// </summary>
     public class MockUsuarioRepo : IUsuarioRepo
     {
+        public void CreateUsuario(Usuario usuario)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Usuario> GetAllUsuarios()
         {
             var usuarios = new List<Usuario>
@@ -22,6 +27,16 @@ namespace Alpha.Servicios.Data
         public Usuario GetUsuarioById(int Id)
         {
             return new Usuario{Id=0,Nombres="test",Apellidos="Test"};
+        }
+
+        public bool SaveChanges()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UpdateUsuario(Usuario usuario)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

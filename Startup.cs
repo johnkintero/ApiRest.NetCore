@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Alpha.Servicios.Data;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,8 +28,14 @@ namespace Servicios
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Conexion a la base de datos
             services.AddDbContext<AlphaAppContext>(opt => opt.UseMySql(Configuration.GetConnectionString("CommanderConnetion")));
             services.AddControllers();
+
+            //Mapear automaticamente los DTOs
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            //Inyeccion del repositorio
             services.AddScoped<IUsuarioRepo, UsuarioRepo>();
         }
 

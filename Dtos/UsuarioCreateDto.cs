@@ -1,10 +1,14 @@
-namespace   Alpha.Servicios.Models
+using System.ComponentModel.DataAnnotations;
+
+namespace   Alpha.Servicios.Dtos
 {
-    public  class Usuario
+    public  class UsuarioCreateDto
     {
-        public int Id { get; set; }
+        [Required]
         public string Nombres { get; set; }
+        [Required]
         public string Apellidos { get; set; }
+        [Required]
         public string Email { get; set; }
         public string Password { get; set; }
         public string Tipo { get; set; }

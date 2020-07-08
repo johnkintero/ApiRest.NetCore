@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using Alpha.Servicios.Models;
 
 namespace Alpha.Servicios.Data
@@ -11,6 +12,16 @@ namespace Alpha.Servicios.Data
         {
             _context = context;
         }
+
+        public void CreateUsuario(Usuario usuario)
+        {
+            if (usuario == null)
+            {
+                throw new ArgumentNullException(nameof(usuario));
+            }
+            _context.Usuario.Add(usuario);
+        }
+
         public IEnumerable<Usuario> GetAllUsuarios()
         {
             return _context.Usuario.ToList();
@@ -19,6 +30,11 @@ namespace Alpha.Servicios.Data
         public Usuario GetUsuarioById(int Id)
         {
             return _context.Usuario.FirstOrDefault(u=> u.Id == Id);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
         }
     }
 }
