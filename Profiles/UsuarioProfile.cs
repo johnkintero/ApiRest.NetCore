@@ -11,6 +11,8 @@ namespace Alpha.Servicios.Profiles
             //source -> target
             CreateMap<Usuario, UsuarioReadDto>();
             CreateMap<UsuarioCreateDto, Usuario>();     
+            CreateMap<UsuarioUpdateDto, Usuario>();
+            CreateMap<Usuario,UsuarioUpdateDto>();
         }
     }
 }

@@ -22,6 +22,15 @@ namespace Alpha.Servicios.Data
             _context.Usuario.Add(usuario);
         }
 
+        public void DeleteUsuario(Usuario usuario)
+        {
+            if (usuario == null)
+            {
+                throw new ArgumentNullException(nameof(usuario));
+            }
+            _context.Usuario.Remove(usuario);
+        }
+
         public IEnumerable<Usuario> GetAllUsuarios()
         {
             return _context.Usuario.ToList();
@@ -35,6 +44,11 @@ namespace Alpha.Servicios.Data
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
+        }
+
+        public void UpdateUsuario(Usuario usuario)
+        {
+            
         }
     }
 }

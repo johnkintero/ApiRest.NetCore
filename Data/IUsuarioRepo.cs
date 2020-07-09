@@ -10,6 +10,7 @@ namespace Alpha.Servicios.Data
         Usuario GetUsuarioById(int Id);
         void CreateUsuario(Usuario usuario);
         void UpdateUsuario(Usuario usuario);
+        void DeleteUsuario(Usuario usuario);
 
     
 

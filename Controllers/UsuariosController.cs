@@ -3,6 +3,7 @@ using Alpha.Servicios.Data;
 using Alpha.Servicios.Dtos;
 using Alpha.Servicios.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alpha.Servicios.Controllers
@@ -52,6 +53,60 @@ namespace Alpha.Servicios.Controllers
             var usuarioReadDto = _mapper.Map<UsuarioReadDto>(usuarioModel);
             return CreatedAtRoute(nameof(GetUsuarioById), new {Id = usuarioReadDto.Id},usuarioReadDto );
             //return Ok(usuarioReadDto);
+        }
+
+        //PUT api/usuario/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateUsuario(int id, UsuarioUpdateDto usuarioUpdate)
+        {
+            var usuarioModelFromRepo = _repository.GetUsuarioById(id);
+            if (usuarioModelFromRepo == null)
+            {
+                return NotFound();
+            }
+                _mapper.Map(usuarioUpdate, usuarioModelFromRepo);
+                _repository.UpdateUsuario(usuarioModelFromRepo);
+                _repository.SaveChanges();
+                return NoContent();
+        }
+
+        //PATCH api/usuario/{id}
+        [HttpPatch("{id}")]
+        public ActionResult PartialUsuarioUpdate(int id, JsonPatchDocument<UsuarioUpdateDto> patchDoc)
+        {
+            var usuarioModelFromRepo = _repository.GetUsuarioById(id);
+            if (usuarioModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            var usuarioToPatch = _mapper.Map<UsuarioUpdateDto>(usuarioModelFromRepo);
+            patchDoc.ApplyTo(usuarioToPatch, ModelState);
+            if(!TryValidateModel(usuarioToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(usuarioToPatch, usuarioModelFromRepo);
+
+            _repository.UpdateUsuario(usuarioModelFromRepo);
+
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
+
+        //DELETE api/usuario/{id}
+        [HttpDelete("{id}")]
+        public ActionResult DeleteUsuario(int id)
+        {
+            var usuarioModelFromRepo = _repository.GetUsuarioById(id);
+            if (usuarioModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _repository.DeleteUsuario(usuarioModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
         }
 
     }

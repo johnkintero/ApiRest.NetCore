@@ -1,17 +1,17 @@
-using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace   Alpha.Servicios.Models
+namespace   Alpha.Servicios.Dtos
 {
-    public  class Usuario
+    public  class UsuarioUpdateDto
     {
-        public int Id { get; set; }
+        [Required]
         public string Nombres { get; set; }
+        [Required]
         public string Apellidos { get; set; }
+        [Required]
         public string Email { get; set; }
         public string Password { get; set; }
         public string Tipo { get; set; }
         public string Estado { get; set; }
-        // public DateTime CreateOn { get; set; }
-        // public DateTime UpdateOn { get; set; }
     }
 }

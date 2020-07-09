@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 
 namespace Servicios
 {
@@ -31,6 +32,10 @@ namespace Servicios
             //Conexion a la base de datos
             services.AddDbContext<AlphaAppContext>(opt => opt.UseMySql(Configuration.GetConnectionString("CommanderConnetion")));
             services.AddControllers();
+
+            services.AddControllers().AddNewtonsoftJson(s => {
+                s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             //Mapear automaticamente los DTOs
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

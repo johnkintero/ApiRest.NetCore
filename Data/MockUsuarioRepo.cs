@@ -13,6 +13,11 @@ namespace Alpha.Servicios.Data
             throw new System.NotImplementedException();
         }
 
+        public void DeleteUsuario(Usuario usuario)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Usuario> GetAllUsuarios()
         {
             var usuarios = new List<Usuario>
